@@ -1,7 +1,7 @@
 version: '3'
 services:
   discovery-server:
-    image: nhuansilver3003/discovery-server
+    image: nhuansilver3003/discovery-server:latest
     ports:
       - "8761:8761"
     environment:
@@ -16,6 +16,17 @@ services:
       - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://discovery-server:8761/eureka/
     depends_on:
       - discovery-server
+
+  auth-service:
+    image: nhuansilver3003/auth-service:latest
+    ports:
+      - "8090:8090"
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://discovery-server:8761/eureka/
+    depends_on:
+      - discovery-server
+      - api-gateway
 
   product-service:
     image: nhuansilver3003/product-service:latest
