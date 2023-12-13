@@ -1,0 +1,24 @@
+#jwt
+application:
+  security:
+    jwt:
+      secret-key: 404E635266556A586E3272357538782F413F4428472B4B6250645367566B5970
+      #a day
+      expiration: 86400000
+      #a week
+      refresh-token:
+        expiration: 604800000
+spring:
+  application:
+    name: auth-service
+  data:
+    mongodb:
+      uri: mongodb://admin:admin@104.154.236.58:27017/microservice-db
+server:
+  port: 8090
+eureka:
+  instance:
+    hostname: localhost
+  client:
+    serviceUrl:
+      defaultZone: http://${eureka.instance.hostname}:${server.port}/eureka
