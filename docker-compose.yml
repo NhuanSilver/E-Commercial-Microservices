@@ -6,16 +6,18 @@ services:
       - "8761:8761"
     environment:
       - SPRING_PROFILES_ACTIVE=docker
-
+    networks:
+      - my-networks
   api-gateway:
     image: nhuansilver3003/api-gateway:latest
     ports:
       - "8765:8765"
     environment:
       - SPRING_PROFILES_ACTIVE=docker
-      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://discovery-server:8761/eureka/
     depends_on:
       - discovery-server
+    networks:
+      - my-networks
 
   auth-service:
     image: nhuansilver3003/auth-service:latest
@@ -23,18 +25,21 @@ services:
       - "8090:8090"
     environment:
       - SPRING_PROFILES_ACTIVE=docker
-      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://discovery-server:8761/eureka/
     depends_on:
       - discovery-server
       - api-gateway
-
+    networks:
+      - my-networks
   product-service:
     image: nhuansilver3003/product-service:latest
     ports:
       - "8080:8080"
     environment:
       - SPRING_PROFILES_ACTIVE=docker
-      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://discovery-server:8761/eureka/
     depends_on:
       - discovery-server
       - api-gateway
+    networks:
+      - my-networks
+networks:
+  my-networks:
