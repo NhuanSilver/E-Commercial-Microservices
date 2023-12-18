@@ -1,0 +1,1 @@
+mongodb://admin:admin@104.154.236.58:27017/microservice-db?authSource=admin

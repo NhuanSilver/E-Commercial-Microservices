@@ -1,1 +1,0 @@
-mongodb://admin@34.118.235.15:27017/?ssl=true&authMechanism=PLAIN
