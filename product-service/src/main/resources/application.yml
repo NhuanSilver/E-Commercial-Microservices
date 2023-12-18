@@ -1,7 +1,16 @@
-server.port=8080
-spring.application.name=product-service
-eureka.client.serviceUrl.defaultZone=http://localhost:8761/eureka/
-eureka.instance.prefer-ip-address=true
+server:
+  port: 8080
 
-#mongo
-spring.data.mongodb.uri=mongodb://admin:admin@104.154.236.58:27017/microservice-db
+spring:
+  application:
+    name: product-service
+  data:
+    mongodb:
+      uri: mongodb://admin:admin@104.154.236.58:27017/microservice-db
+
+eureka:
+  instance:
+    hostname: localhost
+  client:
+    serviceUrl:
+      defaultZone: http://${eureka.instance.hostname}:${server.port}/eureka
