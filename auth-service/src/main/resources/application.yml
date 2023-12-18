@@ -8,14 +8,17 @@ application:
       #a week
       refresh-token:
         expiration: 604800000
+
 spring:
   application:
     name: auth-service
   data:
     mongodb:
       uri: mongodb://admin:admin@104.154.236.58:27017/microservice-db
+
 server:
   port: 8090
+
 eureka:
   instance:
     hostname: localhost
