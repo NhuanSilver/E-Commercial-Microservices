@@ -10,13 +10,22 @@ import org.springframework.security.web.server.SecurityWebFilterChain;
 @EnableWebFluxSecurity
 public class SecurityConfig {
     @Bean
-    public SecurityWebFilterChain securityFilterChain(ServerHttpSecurity http){
+    public SecurityWebFilterChain securityFilterChain(ServerHttpSecurity http) {
         http
                 .csrf()
                 .disable()
-                .authorizeExchange()
-                .anyExchange()
-                .permitAll();
+                .authorizeExchange(exchange ->
+                        exchange.pathMatchers().permitAll().pathMatchers(
+                                        "/v2/api-docs",
+                                        "/configuration/ui",
+                                        "/swagger-resources/**",
+                                        "/configuration/security",
+                                        "/swagger-ui/**",
+                                        "/webjars/**"
+                                ).permitAll()
+                                .anyExchange())
+
+        ;
         return http.build();
     }
 }
