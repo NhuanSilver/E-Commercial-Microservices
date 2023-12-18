@@ -2,6 +2,7 @@ version: '3'
 services:
   discovery-server:
     image: nhuansilver3003/discovery-server:latest
+    container_name: discovery-server
     ports:
       - "8761:8761"
     environment:
@@ -10,6 +11,7 @@ services:
       - my-networks
   api-gateway:
     image: nhuansilver3003/api-gateway:latest
+    container_name: api-gateway
     ports:
       - "8765:8765"
     environment:
@@ -21,6 +23,7 @@ services:
 
   auth-service:
     image: nhuansilver3003/auth-service:latest
+    container_name: auth-service
     ports:
       - "8090:8090"
     environment:
@@ -31,6 +34,7 @@ services:
     networks:
       - my-networks
   product-service:
+    container_name: product-service
     image: nhuansilver3003/product-service:latest
     ports:
       - "8080:8080"

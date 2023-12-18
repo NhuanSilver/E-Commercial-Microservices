@@ -9,8 +9,6 @@ spring:
       uri: mongodb://admin:admin@104.154.236.58:27017/microservice-db
 
 eureka:
-  instance:
-    hostname: localhost
   client:
     serviceUrl:
       defaultZone: http://localhost:8761/eureka
