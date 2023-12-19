@@ -2,8 +2,6 @@ package com.ecommercial.productservice.controller;
 
 
 
-import com.ecommercial.productservice.dto.product.ProductRequest;
-import com.ecommercial.productservice.service.ProductService;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;

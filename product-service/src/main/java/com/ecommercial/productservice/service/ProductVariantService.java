@@ -10,21 +10,12 @@
 
 package com.ecommercial.productservice.service;
 
-import com.ecommercial.productservice.model.input.UpdateProductInput;
 import com.ecommercial.productservice.model.product.Product;
-import com.ecommercial.productservice.model.product.ProductDetail;
 import com.ecommercial.productservice.model.product.ProductVariant;
 
-public interface ProductService {
+public interface ProductVariantService {
 
-    Product createProduct(Product product, ProductVariant productVariant);
+    ProductVariant createProductVariant(ProductVariant productVariant);
 
-    Product getProductById(String id);
-
-    ProductDetail getProductDetailById(String id);
-
-    Product updateProduct(String id, UpdateProductInput updateProductInput);
-
-    void deleteProduct(String id);
-
+    Product getProductVariantById(String id);
 }
