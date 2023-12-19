@@ -1,5 +1,6 @@
 package com.ecommercial.auth.model;
 
+import com.ecommercial.auth.enums.Role;
 import lombok.Builder;
 import lombok.Data;
 import org.springframework.data.annotation.Id;
@@ -8,10 +9,8 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import java.util.Set;
 
 @Data
 @Document
@@ -21,13 +20,11 @@ public class User implements UserDetails {
     private String username;
     private String password;
     private String email;
-    private Set<String> authorities;
+    private Role role;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        List<GrantedAuthority> ats = new ArrayList<>();
-        this.authorities.forEach(a -> ats.add(new SimpleGrantedAuthority(a)));
-        return ats;
+        return List.of(new SimpleGrantedAuthority(role+""));
     }
 
     @Override
@@ -47,7 +44,7 @@ public class User implements UserDetails {
 
     @Override
     public boolean isAccountNonLocked() {
-        return false;
+        return true;
     }
 
     @Override
