@@ -14,14 +14,14 @@ spring:
           uri: lb://auth-service
           predicates:
            - Path=/api/v1/auth/**
-          filters:
-            - AuthenticationFilter
         - id: product-service
           uri: lb://product-service
           predicates:
-            - Path=/api/v1/products/**
-          filters:
-            - AuthenticationFilter
+            - Path=/api/v1/product/**
+        - id: product-service
+          uri: lb://cart-service
+          predicates:
+            - Path=/api/v1/carts/**
 server:
   port: 8765
 
