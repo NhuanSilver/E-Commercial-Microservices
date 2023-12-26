@@ -3,12 +3,12 @@
  *  * Copyright (C) 2023 Lê Trung Nhân
  *  * Year of Birth: 22/08/2001
  *  * Nickname: Nero
- *  * Date Created: 12/26/23, 11:56 AM
- *  * Last Modified: 12/26/23, 11:56 AM
+ *  * Date Created: 12/26/23, 1:43 PM
+ *  * Last Modified: 12/26/23, 1:43 PM
  *  * -----------------------------------------------------------------------------
  */
 
-package com.ecommercial.productservice.implement.serivce;
+package com.ecommercial.productservice.implement.serivceImpl;
 
 import com.ecommercial.productservice.base.mongo.BaseRepository;
 import com.ecommercial.productservice.model.industrial.IndustrialProduct;
