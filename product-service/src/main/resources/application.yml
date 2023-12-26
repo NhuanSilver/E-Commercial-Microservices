@@ -6,7 +6,7 @@ spring:
     name: product-service
   data:
     mongodb:
-      uri: mongodb://admin:admin@104.154.236.58:27017/microservice-db?authSource=admin
+      uri: mongodb+srv://admin:admin@cluster0.7sopmmd.mongodb.net/microservice-db
 
 eureka:
   client:

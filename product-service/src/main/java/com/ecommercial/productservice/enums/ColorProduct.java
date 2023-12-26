@@ -1,7 +1,19 @@
+/*
+ * -----------------------------------------------------------------------------
+ *  * Copyright (C) 2023 Lê Trung Nhân
+ *  * Year of Birth: 22/08/2001
+ *  * Nickname: Nero
+ *  * Date Created: 12/19/23, 9:53 AM
+ *  * Last Modified: 12/19/23, 9:53 AM
+ *  * -----------------------------------------------------------------------------
+ */
+
 package com.ecommercial.productservice.enums;
 
 import com.ecommercial.productservice.enums.utils.BaseEnum;
+import lombok.Getter;
 
+@Getter
 public enum ColorProduct {
     WHITE("Màu trắng"), BLUE("Màu xanh da trời"), GREEN("Màu xanh lá cây"),
     YELLOW("Màu vàng"), PURPLE("Màu tím"), ORANGE("Màu da cam"),
@@ -12,10 +24,6 @@ public enum ColorProduct {
 
     private ColorProduct(String description) {
         this.description = description;
-    }
-
-    public String getDescription() {
-        return this.description;
     }
 
     @Override
