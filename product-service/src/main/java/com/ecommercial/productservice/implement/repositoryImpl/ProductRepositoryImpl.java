@@ -3,12 +3,12 @@
  *  * Copyright (C) 2023 Lê Trung Nhân
  *  * Year of Birth: 22/08/2001
  *  * Nickname: Nero
- *  * Date Created: 12/26/23, 1:35 PM
- *  * Last Modified: 12/26/23, 1:35 PM
+ *  * Date Created: 12/26/23, 1:52 PM
+ *  * Last Modified: 12/26/23, 1:52 PM
  *  * -----------------------------------------------------------------------------
  */
 
-package com.ecommercial.productservice.implement.repository;
+package com.ecommercial.productservice.implement.repositoryImpl;
 
 import com.ecommercial.productservice.model.product.Product;
 import com.ecommercial.productservice.model.product.ProductDetail;
@@ -43,6 +43,7 @@ public class ProductRepositoryImpl implements ProductRepositoryManager {
         ProductDetail productDetail = new ProductDetail();
         productDetail.setProduct(product);
         productDetail.setVariants(productVariants);
+
         return productDetail;
     }
 
