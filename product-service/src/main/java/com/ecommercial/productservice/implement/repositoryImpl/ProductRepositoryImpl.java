@@ -3,8 +3,8 @@
  *  * Copyright (C) 2023 Lê Trung Nhân
  *  * Year of Birth: 22/08/2001
  *  * Nickname: Nero
- *  * Date Created: 12/26/23, 1:52 PM
- *  * Last Modified: 12/26/23, 1:52 PM
+ *  * Date Created: 12/26/23, 11:07 PM
+ *  * Last Modified: 12/26/23, 11:07 PM
  *  * -----------------------------------------------------------------------------
  */
 
@@ -55,5 +55,10 @@ public class ProductRepositoryImpl implements ProductRepositoryManager {
         productDetail.setProduct(product);
         productDetail.setVariants(variants);
         return productDetail;
+    }
+
+    @Override
+    public ProductVariant getProductVariantById(String variantId) {
+        return mongoTemplate.findById(variantId, ProductVariant.class);
     }
 }
