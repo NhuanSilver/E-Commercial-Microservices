@@ -3,12 +3,12 @@
  *  * Copyright (C) 2023 Lê Trung Nhân
  *  * Year of Birth: 22/08/2001
  *  * Nickname: Nero
- *  * Date Created: 12/18/23, 9:21 PM
- *  * Last Modified: 12/18/23, 9:21 PM
+ *  * Date Created: 12/26/23, 11:56 AM
+ *  * Last Modified: 12/26/23, 11:56 AM
  *  * -----------------------------------------------------------------------------
  */
 
-package com.ecommercial.productservice.implement;
+package com.ecommercial.productservice.implement.serivce;
 
 
 import com.ecommercial.productservice.base.mongo.BaseRepository;
@@ -18,10 +18,12 @@ import com.ecommercial.productservice.service.ProductTrademarkService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 
 
 @Service
+
 public class ProductTrademarkServiceImpl extends BaseRepository implements ProductTrademarkService {
 
     private final ProductTrademarkRepository trademarkRepository;
@@ -34,6 +36,8 @@ public class ProductTrademarkServiceImpl extends BaseRepository implements Produ
     @Override
     public Trademark createTrademarkProduct(Trademark trademark) {
         trademark.setId(generateId());
+        trademark.setCreatedAt(new Date());
+        trademark.setUpdatedAt(null);
         trademarkRepository.save(trademark);
         return trademark;
     }
@@ -57,5 +61,10 @@ public class ProductTrademarkServiceImpl extends BaseRepository implements Produ
     @Override
     public Trademark getTrademarkById(String trademarkId) {
         return trademarkRepository.findById(trademarkId).orElse(null);
+    }
+
+    @Override
+    public List<Trademark> getTrademarkByIndustrials(String industrialId) {
+        return trademarkRepository.findAllById(List.of(industrialId));
     }
 }

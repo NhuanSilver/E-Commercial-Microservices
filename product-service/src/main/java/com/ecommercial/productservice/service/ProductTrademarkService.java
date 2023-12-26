@@ -3,8 +3,8 @@
  *  * Copyright (C) 2023 Lê Trung Nhân
  *  * Year of Birth: 22/08/2001
  *  * Nickname: Nero
- *  * Date Created: 12/18/23, 9:11 PM
- *  * Last Modified: 12/18/23, 9:11 PM
+ *  * Date Created: 12/26/23, 10:25 AM
+ *  * Last Modified: 12/26/23, 10:24 AM
  *  * -----------------------------------------------------------------------------
  */
 
@@ -26,4 +26,5 @@ public interface ProductTrademarkService {
 
     Trademark getTrademarkById(String id);
 
+    List<Trademark> getTrademarkByIndustrials(String industrialId);
 }

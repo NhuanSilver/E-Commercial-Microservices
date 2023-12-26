@@ -1,3 +1,13 @@
+/*
+ * -----------------------------------------------------------------------------
+ *  * Copyright (C) 2023 Lê Trung Nhân
+ *  * Year of Birth: 22/08/2001
+ *  * Nickname: Nero
+ *  * Date Created: 12/26/23, 1:35 PM
+ *  * Last Modified: 12/26/23, 1:35 PM
+ *  * -----------------------------------------------------------------------------
+ */
+
 package com.ecommercial.productservice.model.product;
 
 import com.ecommercial.productservice.base.model.BaseModel;
@@ -6,12 +16,12 @@ import com.ecommercial.productservice.enums.ColorProduct;
 import com.ecommercial.productservice.enums.SizeType;
 import com.ecommercial.productservice.model.size.DimensionMeasurement;
 import com.ecommercial.productservice.model.weight.WeightUnit;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.query.Criteria;
+import org.springframework.data.mongodb.core.query.Query;
 
+@EqualsAndHashCode(callSuper = true)
 @Data
 @AllArgsConstructor
 @Document(value = "productVariants")
@@ -33,4 +43,8 @@ public class ProductVariant extends BaseModel {
     private DimensionMeasurement dimension;
     private MoneyV2 salePrice;
     private double discount;
+
+    public static Query getQueryByProductId(String productId) {
+        return new Query().addCriteria(Criteria.where("productId").is(productId));
+    }
 }
