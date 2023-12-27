@@ -1,5 +1,6 @@
 package com.ecommercial.cart.service;
 
+import com.ecommercial.cart.dto.cart.CartItemDto;
 import com.ecommercial.cart.dto.money.Money;
 import com.ecommercial.cart.dto.input.AddToCartRequest;
 import com.ecommercial.cart.dto.cart.CartDto;
@@ -11,6 +12,7 @@ import com.ecommercial.cart.model.CartItem;
 import com.ecommercial.cart.proxy.ProductProxy;
 import com.ecommercial.cart.repository.CartItemRepository;
 import com.ecommercial.cart.repository.CartRepository;
+import com.ecommercial.cart.utils.CartItemMapper;
 import com.ecommercial.cart.utils.CartMapper;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -28,6 +30,7 @@ public class CartServiceImp implements ICartService {
     private final CartRepository cartRepository;
     private final CartItemRepository itemRepository;
     private final CartMapper cartMapper;
+    private final CartItemMapper itemMapper;
     private final ProductProxy productProxy;
 
     @Override
@@ -97,7 +100,7 @@ public class CartServiceImp implements ICartService {
             items.add(exItem);
         }
 
-        double amount = 0;
+        double amount;
         double newAmount = request.getQuantity() * variant.getSalePrice().getAmount();
 
         if (cart.getTotalPrice() != null) {
@@ -113,5 +116,21 @@ public class CartServiceImp implements ICartService {
         cart.setTotalPrice(money);
 
         return cartMapper.toCartDto(cartRepository.save(cart), items);
+    }
+
+    @Override
+    public CartItemDto increaseItemQty(Long id) {
+        CartItem item = itemRepository.findById(id)
+                .orElseThrow(() -> new NotFoundException("Item not found"));
+        item.setQuantity(item.getQuantity() + 1);
+        return itemMapper.toCartItemDto(itemRepository.save(item));
+    }
+
+    @Override
+    public CartItemDto decreaseItemQty(Long id) {
+        CartItem item = itemRepository.findById(id)
+                .orElseThrow(() -> new NotFoundException("Item not found"));
+        if (item.getQuantity() > 1) item.setQuantity(item.getQuantity() - 1);
+        return itemMapper.toCartItemDto(itemRepository.save(item));
     }
 }

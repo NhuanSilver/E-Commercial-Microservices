@@ -8,9 +8,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 @FeignClient(name = "product-service")
 public interface ProductProxy {
-    @GetMapping("/api/v1/product/variant/{id}")
+    @GetMapping("/api/v1/products/variant/{id}")
     ProductVariant getProductVariantById(@PathVariable Long id);
 
-    @GetMapping("/api/v1/product/detail/{id}")
+    @GetMapping("/api/v1/products/detail/{id}")
     Product getProductDetail(@PathVariable String id);
 }
