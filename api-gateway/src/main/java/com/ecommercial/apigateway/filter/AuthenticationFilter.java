@@ -56,7 +56,8 @@ public class AuthenticationFilter extends AbstractGatewayFilterFactory<Authentic
     }
 
     public final List<String> endpoints = List.of(
-            "/auth/register",
+            "/auth",
+            "/product",
             "/eureka"
     );
 
