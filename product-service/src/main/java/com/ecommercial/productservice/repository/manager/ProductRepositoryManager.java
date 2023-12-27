@@ -10,9 +10,14 @@
 
 package com.ecommercial.productservice.repository.manager;
 
+import com.ecommercial.productservice.base.filter.ResultList;
+import com.ecommercial.productservice.model.input.UpdateProductInput;
 import com.ecommercial.productservice.model.product.Product;
 import com.ecommercial.productservice.model.product.ProductDetail;
+import com.ecommercial.productservice.model.product.ProductFilter;
 import com.ecommercial.productservice.model.product.ProductVariant;
+import com.mongodb.client.MongoCollection;
+import org.bson.conversions.Bson;
 
 import java.util.List;
 
@@ -23,4 +28,5 @@ public interface ProductRepositoryManager {
 
     ProductVariant getProductVariantById(String variantId);
 
+    MongoCollection getCollection();
 }

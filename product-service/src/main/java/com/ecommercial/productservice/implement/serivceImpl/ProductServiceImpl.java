@@ -11,11 +11,13 @@
 package com.ecommercial.productservice.implement.serivceImpl;
 
 import com.ecommercial.productservice.base.exception.ProductServiceException;
+import com.ecommercial.productservice.base.filter.ResultList;
 import com.ecommercial.productservice.base.mongo.BaseRepository;
 import com.ecommercial.productservice.model.input.CreateProductInput;
 import com.ecommercial.productservice.model.input.UpdateProductInput;
 import com.ecommercial.productservice.model.product.Product;
 import com.ecommercial.productservice.model.product.ProductDetail;
+import com.ecommercial.productservice.model.product.ProductFilter;
 import com.ecommercial.productservice.model.product.ProductVariant;
 import com.ecommercial.productservice.model.size.DimensionUnit;
 import com.ecommercial.productservice.model.weight.WeightUnit;
@@ -24,6 +26,7 @@ import com.ecommercial.productservice.service.ProductService;
 import com.ecommercial.productservice.utils.GeneralIdUtils;
 import com.ecommercial.productservice.utils.MoneyCalculateUtils;
 import lombok.RequiredArgsConstructor;
+import org.bson.conversions.Bson;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -91,6 +94,7 @@ public class ProductServiceImpl extends BaseRepository implements ProductService
 
     @Override
     public void deleteProduct(String id) {
+//        productRepository.deleteProduct(id);
     }
 
     @Override
@@ -136,6 +140,25 @@ public class ProductServiceImpl extends BaseRepository implements ProductService
         }
         return productRepository.getProductVariantById(variantId);
     }
+
+    @Override
+    public ResultList<Product> filterProduct(ProductFilter productFilter) {
+        List<Bson> filter = getFilters(productFilter);
+        if (null != productFilter.getPriceFrom() && null != productFilter.getPriceTo()) {
+            betweenFilter(productFilter.getPriceFrom(), productFilter.getPriceTo(), filter);
+        }
+        if (null != productFilter.getTradeMarkId())
+            appendFilter(productFilter.getTradeMarkId(), "tradeMarkId", filter);
+        if (null != productFilter.getName())
+            appendFilter(productFilter.getName(), "name", filter);
+
+        if (null != productFilter.getIndustrialId())
+            appendFilter(productFilter.getIndustrialId(), "industrialId", filter);
+        if (null != productFilter.getProductId())
+            appendFilter(productFilter.getProductId(), "_id", filter);
+        return getResultList(productRepository.getCollection(), filter, productFilter.getOffset(), productFilter.getMaxResult());
+    }
+
 
     //    validate input
 

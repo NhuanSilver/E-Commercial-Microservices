@@ -12,10 +12,9 @@ package com.ecommercial.productservice.service;
 
 import com.ecommercial.productservice.base.exception.ProductServiceException;
 import com.ecommercial.productservice.model.product.Trademark;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
-@Service
+
 public interface ProductTrademarkService {
 
     Trademark createTrademarkProduct(Trademark trademark) throws ProductServiceException;

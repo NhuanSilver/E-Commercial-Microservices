@@ -12,9 +12,12 @@ package com.ecommercial.productservice.controller;
 
 
 import com.ecommercial.productservice.base.exception.ProductServiceException;
+import com.ecommercial.productservice.base.filter.ResultList;
 import com.ecommercial.productservice.model.input.CreateProductInput;
+import com.ecommercial.productservice.model.input.UpdateProductInput;
 import com.ecommercial.productservice.model.product.Product;
 import com.ecommercial.productservice.model.product.ProductDetail;
+import com.ecommercial.productservice.model.product.ProductFilter;
 import com.ecommercial.productservice.model.product.ProductVariant;
 import com.ecommercial.productservice.service.ProductService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -80,6 +83,19 @@ public class ProductController extends MainController {
             @RequestParam(defaultValue = "3") int size) throws ProductServiceException {
         return productService.pagingProduct(name, page, size);
 
+    }
+
+    @Operation(summary = "find product by filter")
+    @PostMapping("/product/filter")
+    public ResultList<Product> searchProduct(@RequestBody ProductFilter productFilter) {
+        return productService.filterProduct(productFilter);
+    }
+
+    @Operation(summary = "update product")
+    @PutMapping("/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public Product updateProduct(@PathVariable String id, @RequestBody UpdateProductInput product) {
+        return productService.updateProduct(id, product);
     }
 
     //   log error
