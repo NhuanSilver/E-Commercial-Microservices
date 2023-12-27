@@ -13,6 +13,7 @@ package com.ecommercial.productservice.model.product;
 import com.ecommercial.productservice.base.model.BaseModel;
 import com.ecommercial.productservice.base.model.MoneyV2;
 
+import com.ecommercial.productservice.utils.FulltextIndex;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.*;
@@ -28,6 +29,7 @@ import java.util.List;
 @NoArgsConstructor
 @Builder
 public class Product extends BaseModel {
+    @FulltextIndex
     private String name;
     private String industrialId;
     private String industrialTypeName;
@@ -39,4 +41,6 @@ public class Product extends BaseModel {
     private String title;
     private double discount;
     private String tradeMarkId;//thương hiệu
+
+
 }

@@ -11,10 +11,12 @@
 package com.ecommercial.productservice.service;
 
 import com.ecommercial.productservice.base.exception.ProductServiceException;
+import com.ecommercial.productservice.base.filter.ResultList;
 import com.ecommercial.productservice.model.input.CreateProductInput;
 import com.ecommercial.productservice.model.input.UpdateProductInput;
 import com.ecommercial.productservice.model.product.Product;
 import com.ecommercial.productservice.model.product.ProductDetail;
+import com.ecommercial.productservice.model.product.ProductFilter;
 import com.ecommercial.productservice.model.product.ProductVariant;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -22,7 +24,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Map;
 
-@Service
+
 public interface ProductService {
 
     ProductDetail createProduct(CreateProductInput productInput) throws ProductServiceException;
@@ -40,4 +42,6 @@ public interface ProductService {
     List<Product> getAllProduct() throws ProductServiceException;
 
     ProductVariant getProductVariantById(String variantId) throws ProductServiceException;
+
+    ResultList<Product> filterProduct(ProductFilter productFilter);
 }

@@ -10,15 +10,17 @@
 
 package com.ecommercial.productservice.repository;
 
+
 import com.ecommercial.productservice.model.product.Product;
 import com.ecommercial.productservice.repository.manager.ProductRepositoryManager;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.mongodb.repository.MongoRepository;
 
-import java.util.List;
+
 
 public interface ProductRepository extends MongoRepository<Product, String>, ProductRepositoryManager {
     Product getProductById(String id);
     Page<Product> findByNameContainingIgnoreCase(String name, Pageable pageable);
+
 }

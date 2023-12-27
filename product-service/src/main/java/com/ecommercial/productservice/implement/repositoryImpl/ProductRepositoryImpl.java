@@ -10,19 +10,14 @@
 
 package com.ecommercial.productservice.implement.repositoryImpl;
 
+import com.ecommercial.productservice.model.input.UpdateProductInput;
 import com.ecommercial.productservice.model.product.Product;
 import com.ecommercial.productservice.model.product.ProductDetail;
 import com.ecommercial.productservice.model.product.ProductVariant;
 import com.ecommercial.productservice.repository.manager.ProductRepositoryManager;
+import com.mongodb.client.MongoCollection;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.data.mongodb.core.MongoTemplate;
-import org.springframework.data.mongodb.core.aggregation.Aggregation;
-import org.springframework.data.mongodb.core.aggregation.MatchOperation;
-import org.springframework.data.mongodb.core.aggregation.SortOperation;
-import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -61,6 +56,13 @@ public class ProductRepositoryImpl implements ProductRepositoryManager {
     public ProductVariant getProductVariantById(String variantId) {
         return mongoTemplate.findById(variantId, ProductVariant.class);
     }
+
+    @Override
+    public MongoCollection getCollection() {
+        return mongoTemplate.getCollection("products");
+    }
+
+
 
 
 }

@@ -15,7 +15,7 @@ import com.ecommercial.productservice.model.industrial.IndustrialProduct;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-@Service
+
 public interface ProductIndustrialService {
 
     IndustrialProduct createIndustrialProduct(IndustrialProduct industrialProduct) throws ProductServiceException;
