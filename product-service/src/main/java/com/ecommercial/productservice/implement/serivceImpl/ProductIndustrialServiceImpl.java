@@ -10,6 +10,7 @@
 
 package com.ecommercial.productservice.implement.serivceImpl;
 
+import com.ecommercial.productservice.base.exception.ProductServiceException;
 import com.ecommercial.productservice.base.mongo.BaseRepository;
 import com.ecommercial.productservice.model.industrial.IndustrialProduct;
 import com.ecommercial.productservice.repository.ProductIndustrialRepository;
@@ -24,13 +25,11 @@ import java.util.List;
 @RequiredArgsConstructor
 public class ProductIndustrialServiceImpl extends BaseRepository implements ProductIndustrialService {
 
-    private final String COLLECTION_NAME = "industrials";
-
-
     private final ProductIndustrialRepository productIndustrialRepository;
 
     @Override
-    public IndustrialProduct createIndustrialProduct(IndustrialProduct industrialProduct) {
+    public IndustrialProduct createIndustrialProduct(IndustrialProduct industrialProduct) throws ProductServiceException {
+        validateIndustrialProductInput(industrialProduct);
         industrialProduct.setId(generateId());
         industrialProduct.setCreatedAt(new Date());
         industrialProduct.setUpdatedAt(null);
@@ -41,4 +40,19 @@ public class ProductIndustrialServiceImpl extends BaseRepository implements Prod
     public List<IndustrialProduct> getListIndustrial() {
         return productIndustrialRepository.findAll();
     }
+
+    private void validateIndustrialProductInput(IndustrialProduct industrialProduct) throws ProductServiceException {
+        if (null == industrialProduct) {
+            throw new ProductServiceException("invalid_data", "Vui lòng truyền thông tin nghành hàng", "Industrial product is null");
+        }
+        if (null == industrialProduct.getName()) {
+            throw new ProductServiceException("invalid_data", "Vui lòng truyền tên nghành hàng", "Industrial product name is null");
+
+        }
+        if (null == industrialProduct.getIconUrl()) {
+            throw new ProductServiceException("invalid_data", "Vui lòng truyền icon nghành hàng", "Industrial product icon url is null");
+        }
+
+    }
+
 }

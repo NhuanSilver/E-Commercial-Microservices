@@ -10,21 +10,23 @@
 
 package com.ecommercial.productservice.service;
 
+import com.ecommercial.productservice.base.exception.ProductServiceException;
 import com.ecommercial.productservice.model.product.Trademark;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
-
+@Service
 public interface ProductTrademarkService {
 
-    Trademark createTrademarkProduct(Trademark trademark);
+    Trademark createTrademarkProduct(Trademark trademark) throws ProductServiceException;
 
     List<Trademark> getListTrademarkProduct();
 
-    Trademark getTrademarkByIndustrialId(String industrialId);
+    Trademark getTrademarkByIndustrialId(String industrialId) throws ProductServiceException;
 
     List<Trademark> getListTrademarkByIndustrialId(String industrialId);
 
-    Trademark getTrademarkById(String id);
+    Trademark getTrademarkById(String id) throws ProductServiceException;
 
     List<Trademark> getTrademarkByIndustrials(String industrialId);
 }

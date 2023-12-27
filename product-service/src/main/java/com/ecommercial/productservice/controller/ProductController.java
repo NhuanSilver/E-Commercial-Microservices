@@ -21,62 +21,65 @@ import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
-@RequestMapping("/api/v1/product")
+@RequestMapping("/api/v1/products")
 @RequiredArgsConstructor
 public class ProductController extends MainController {
 
-    @Autowired
-    private ProductService productService;
-
-    @Operation(summary = "Check Product Api")
-    @GetMapping
-    @ResponseStatus(HttpStatus.OK)
-    public String checkProductApi() {
-        return "Product Api is working";
-    }
-
+    private final ProductService productService;
 
     //    api segment
-    @Operation(summary = "Create Product ")
+    @Operation(summary = "create product")
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public ProductDetail createProduct(@RequestBody CreateProductInput productInput) throws ProductServiceException {
         return productService.createProduct(productInput);
     }
 
-    @Operation(summary = "Get Product By Product Id")
+    @Operation(summary = "get product by product id")
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
     public Product getProduct(@PathVariable String id) throws ProductServiceException {
         return productService.getProductById(id);
     }
 
-    @Operation(summary = "Get Product Detail By Product Id")
+    @Operation(summary = "get product detail by product id")
     @GetMapping("/detail/{id}")
     @ResponseStatus(HttpStatus.OK)
     public ProductDetail getProductDetail(@PathVariable String id) throws ProductServiceException {
         return productService.getProductDetailById(id);
     }
 
-    @Operation(summary = "Get All Product")
+    @Operation(summary = "get list product")
     @GetMapping("/all")
     @ResponseStatus(HttpStatus.OK)
     public List<Product> getAllProduct() throws ProductServiceException {
         return productService.getAllProduct();
     }
 
-    @Operation(summary = "Get Product Variant By Product Variant Id")
+    @Operation(summary = "get product variant by id")
     @GetMapping("/variant/{variantId}")
     @ResponseStatus(HttpStatus.OK)
     public ProductVariant getProductVariant(@PathVariable String variantId) throws ProductServiceException {
         return productService.getProductVariantById(variantId);
+    }
+
+    @Operation(summary = "get list product by page")
+    @GetMapping("/paginated")
+    @ResponseStatus(HttpStatus.OK)
+    public ResponseEntity<Map<String, Object>> getPagingProduct(
+            @RequestParam(required = false) String name,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "3") int size) throws ProductServiceException {
+        return productService.pagingProduct(name, page, size);
+
     }
 
     //   log error

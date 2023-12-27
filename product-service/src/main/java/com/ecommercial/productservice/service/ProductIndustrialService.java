@@ -10,13 +10,15 @@
 
 package com.ecommercial.productservice.service;
 
+import com.ecommercial.productservice.base.exception.ProductServiceException;
 import com.ecommercial.productservice.model.industrial.IndustrialProduct;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
-
+@Service
 public interface ProductIndustrialService {
 
-    IndustrialProduct createIndustrialProduct(IndustrialProduct industrialProduct);
+    IndustrialProduct createIndustrialProduct(IndustrialProduct industrialProduct) throws ProductServiceException;
 
     List<IndustrialProduct> getListIndustrial();
 }

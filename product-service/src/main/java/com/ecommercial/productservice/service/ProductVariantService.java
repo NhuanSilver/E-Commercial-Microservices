@@ -12,7 +12,9 @@ package com.ecommercial.productservice.service;
 
 import com.ecommercial.productservice.model.product.Product;
 import com.ecommercial.productservice.model.product.ProductVariant;
+import org.springframework.stereotype.Service;
 
+@Service
 public interface ProductVariantService {
 
     ProductVariant createProductVariant(ProductVariant productVariant);
