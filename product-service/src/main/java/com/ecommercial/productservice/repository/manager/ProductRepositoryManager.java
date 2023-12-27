@@ -22,4 +22,5 @@ public interface ProductRepositoryManager {
     ProductDetail getProductDetailById(String id);
 
     ProductVariant getProductVariantById(String variantId);
+
 }

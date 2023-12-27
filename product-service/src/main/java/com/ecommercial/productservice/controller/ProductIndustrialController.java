@@ -18,53 +18,30 @@ import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/v1/product/industrial")
+@RequestMapping("/api/v1/products/industrial")
 @RequiredArgsConstructor
 public class ProductIndustrialController extends MainController {
 
-    @Autowired
-    private ProductIndustrialService productIndustrialService;
+    private final ProductIndustrialService productIndustrialService;
 
-    @GetMapping
-    @ResponseStatus(HttpStatus.OK)
-    public String checkProductApi() {
-        return "Product Api is working";
-    }
-
-    @Operation(summary = "Get All Industrial Product")
+    @Operation(summary = "get list industrial product")
     @GetMapping("/all")
     @ResponseStatus(HttpStatus.OK)
     public List<IndustrialProduct> getAllIndustrial() {
         return productIndustrialService.getListIndustrial();
     }
 
-    @Operation(summary = "Created Industrial Product")
+    @Operation(summary = "create industrial product")
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public IndustrialProduct createIndustrial(@RequestBody IndustrialProduct industrialProductRequest) throws ProductServiceException {
-        validateIndustrialProductInput(industrialProductRequest);
         return productIndustrialService.createIndustrialProduct(industrialProductRequest);
-    }
-
-    private void validateIndustrialProductInput(IndustrialProduct industrialProduct) throws ProductServiceException {
-        if (null == industrialProduct) {
-            throw new ProductServiceException("invalid_data", "Vui lòng truyền thông tin nghành hàng", "Industrial product is null");
-        }
-        if (null == industrialProduct.getName()) {
-            throw new ProductServiceException("invalid_data", "Vui lòng truyền tên nghành hàng", "Industrial product name is null");
-
-        }
-        if (null == industrialProduct.getIconUrl()) {
-            throw new ProductServiceException("invalid_data", "Vui lòng truyền icon nghành hàng", "Industrial product icon url is null");
-        }
-
     }
 
     //   log error

@@ -13,6 +13,8 @@ package com.ecommercial.productservice.model.product;
 import com.ecommercial.productservice.base.model.BaseModel;
 import com.ecommercial.productservice.base.model.MoneyV2;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.*;
 import org.springframework.data.mongodb.core.mapping.Document;
 

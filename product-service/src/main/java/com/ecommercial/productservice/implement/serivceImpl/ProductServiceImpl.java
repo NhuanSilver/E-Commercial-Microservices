@@ -24,16 +24,21 @@ import com.ecommercial.productservice.service.ProductService;
 import com.ecommercial.productservice.utils.GeneralIdUtils;
 import com.ecommercial.productservice.utils.MoneyCalculateUtils;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 @RequiredArgsConstructor
 public class ProductServiceImpl extends BaseRepository implements ProductService {
-    @Autowired
+
     private final ProductRepository productRepository;
 
     @Override
@@ -78,6 +83,7 @@ public class ProductServiceImpl extends BaseRepository implements ProductService
         return productRepository.getProductDetailById(id);
     }
 
+
     @Override
     public Product updateProduct(String id, UpdateProductInput updateProductInput) {
         return null;
@@ -88,8 +94,29 @@ public class ProductServiceImpl extends BaseRepository implements ProductService
     }
 
     @Override
-    public List<Product> pagingProduct(int page, int size) {
-        return productRepository.findAll();
+    public ResponseEntity<Map<String, Object>> pagingProduct(String name, int page, int size) throws ProductServiceException {
+        Pageable paging = PageRequest.of(page, size);
+        Page<Product> pageTuts;
+        if (name == null) {
+            pageTuts = productRepository.findAll(paging);
+        } else {
+            pageTuts = productRepository.findByNameContainingIgnoreCase(name, paging);
+        }
+        List<Product> products = pageTuts.getContent();
+        for (Product product : products) {
+            validateProduct(product);
+        }
+        return pagingResponse(pageTuts);
+
+    }
+
+    private ResponseEntity<Map<String, Object>> pagingResponse(Page<Product> pageTuts) {
+        Map<String, Object> response = new HashMap<>();
+        response.put("results", pageTuts.getContent());
+        response.put("currentPage", pageTuts.getNumber());
+        response.put("totalItems", pageTuts.getTotalElements());
+        response.put("totalPages", pageTuts.getTotalPages());
+        return ResponseEntity.ok(response);
     }
 
     @Override

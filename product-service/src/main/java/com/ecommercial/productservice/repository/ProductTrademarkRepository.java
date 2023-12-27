@@ -15,5 +15,5 @@ import org.springframework.data.mongodb.repository.MongoRepository;
 
 
 public interface ProductTrademarkRepository extends MongoRepository<Trademark, String> {
-
+    Trademark findByIndustrialId(String industrialId);
 }

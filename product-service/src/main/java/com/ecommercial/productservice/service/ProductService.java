@@ -16,22 +16,26 @@ import com.ecommercial.productservice.model.input.UpdateProductInput;
 import com.ecommercial.productservice.model.product.Product;
 import com.ecommercial.productservice.model.product.ProductDetail;
 import com.ecommercial.productservice.model.product.ProductVariant;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 
+@Service
 public interface ProductService {
 
     ProductDetail createProduct(CreateProductInput productInput) throws ProductServiceException;
 
-    Product getProductById(String id) throws ProductServiceException;
-
     ProductDetail getProductDetailById(String id) throws ProductServiceException;
+
+    Product getProductById(String id) throws ProductServiceException;
 
     Product updateProduct(String id, UpdateProductInput updateProductInput);
 
     void deleteProduct(String id);
 
-    List<Product> pagingProduct(int page, int size);
+    ResponseEntity<Map<String, Object>> pagingProduct(String name, int page, int size) throws ProductServiceException;
 
     List<Product> getAllProduct() throws ProductServiceException;
 

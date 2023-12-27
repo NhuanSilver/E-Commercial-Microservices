@@ -3,7 +3,7 @@
  *  * Copyright (C) 2023 Lê Trung Nhân
  *  * Year of Birth: 22/08/2001
  *  * Nickname: Nero
- *  * Date Created: 12/26/23, 11:07 PM
+ *  * Date Created: 12/27/23, 9:52 AM
  *  * Last Modified: 12/26/23, 11:07 PM
  *  * -----------------------------------------------------------------------------
  */
@@ -14,33 +14,33 @@ import com.ecommercial.productservice.model.product.Product;
 import com.ecommercial.productservice.model.product.ProductDetail;
 import com.ecommercial.productservice.model.product.ProductVariant;
 import com.ecommercial.productservice.repository.manager.ProductRepositoryManager;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.core.aggregation.Aggregation;
+import org.springframework.data.mongodb.core.aggregation.MatchOperation;
+import org.springframework.data.mongodb.core.aggregation.SortOperation;
+import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
 @Repository
+@RequiredArgsConstructor
 public class ProductRepositoryImpl implements ProductRepositoryManager {
-    private final MongoTemplate mongoTemplate;
 
-    @Autowired
-    public ProductRepositoryImpl(MongoTemplate mongoTemplate) {
-        this.mongoTemplate = mongoTemplate;
-    }
+    private final MongoTemplate mongoTemplate;
 
     @Override
     public ProductDetail createProduct(Product product, List<ProductVariant> productVariants) {
-        // Lưu sản phẩm chính
-        mongoTemplate.save(product);
-
-        // Lưu các biến thể của sản phẩm
+        mongoTemplate.save(product); // Lưu sản phẩm chính
         productVariants.forEach(variant -> {
             variant.setProductId(product.getId());
             mongoTemplate.save(variant);
-        });
-        // Tạo và trả về thông tin chi tiết sản phẩm
-        ProductDetail productDetail = new ProductDetail();
+        }); // Lưu các biến thể của sản phẩm
+        ProductDetail productDetail = new ProductDetail();  // Tạo và trả về thông tin chi tiết sản phẩm
         productDetail.setProduct(product);
         productDetail.setVariants(productVariants);
 
@@ -61,4 +61,6 @@ public class ProductRepositoryImpl implements ProductRepositoryManager {
     public ProductVariant getProductVariantById(String variantId) {
         return mongoTemplate.findById(variantId, ProductVariant.class);
     }
+
+
 }

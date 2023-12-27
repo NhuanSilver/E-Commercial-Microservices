@@ -14,8 +14,6 @@ package com.ecommercial.productservice.utils;
 import com.ecommercial.productservice.base.model.MoneyV2;
 import com.ecommercial.productservice.enums.CurrencyCode;
 
-;
-
 public class MoneyCalculateUtils {
 
     public static MoneyV2 cloneMoney(MoneyV2 cloneValue, double amount) {
