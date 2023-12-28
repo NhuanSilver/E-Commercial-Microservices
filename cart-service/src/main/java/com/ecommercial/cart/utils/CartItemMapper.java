@@ -14,7 +14,6 @@ public class CartItemMapper {
 
     public CartItemDto toCartItemDto(CartItem item){
         CartItemDto dto = this.modelMapper.map(item, CartItemDto.class);
-
         return dto;
     }
 }
